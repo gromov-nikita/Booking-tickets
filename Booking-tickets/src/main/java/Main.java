@@ -24,7 +24,7 @@ public class Main {
         int[] columns = {
                 10,6,3
         };
-        Transport plane = new Transport(3,rows,columns);
+        Transport plane = new Transport("1",3,rows,columns);
         for(String x : plane.getLayOut()) {
             System.out.println(x);
         }

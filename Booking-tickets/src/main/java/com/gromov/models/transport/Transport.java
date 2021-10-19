@@ -6,18 +6,33 @@ import java.util.List;
 public class Transport {
     private String name;
     private int amountOfSeats = 0;
+    private int amountOfFreeSeats;
     private List<List<List<Boolean>>> seats = new ArrayList<List<List<Boolean>>>();
-    public Transport(int amountOfFloors, int[] amountOfRows, int[] amountOfColumns) {
+    public Transport(String name, int amountOfFloors, int[] amountOfRows, int[] amountOfColumns) {
+        this.name = name;
         for(int i = 0; i < amountOfFloors; i++) {
-            seats.add(new ArrayList<List<Boolean>>());
+            seats.add(new ArrayList<>());
             for(int j = 0; j < amountOfRows[i]; j++) {
-                seats.get(i).add(new ArrayList<Boolean>());
+                seats.get(i).add(new ArrayList<>());
                 for(int k = 0; k < amountOfColumns[i]; k++) {
                     amountOfSeats++;
                     seats.get(i).get(j).add(false);
                 }
             }
         }
+        amountOfFreeSeats = amountOfSeats;
+    }
+    public String getName() {
+        return name;
+    }
+    public List<List<List<Boolean>>> getSeats() {
+        return seats;
+    }
+    public int getAmountOfSeats() {
+        return amountOfSeats;
+    }
+    public int getAmountOfFreeSeats() {
+        return amountOfFreeSeats;
     }
     public List<String> getLayOut() {
         List<String> floorsLayout = new ArrayList<String>();
