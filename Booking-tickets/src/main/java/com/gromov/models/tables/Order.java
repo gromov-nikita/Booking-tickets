@@ -1,6 +1,8 @@
-package com.gromov.models;
+package com.gromov.models.tables;
 
-public class Order {
+import com.gromov.models.interfaces.Table;
+
+public class Order implements Table {
     private User user;
     private Trip trip;
     private int seat;

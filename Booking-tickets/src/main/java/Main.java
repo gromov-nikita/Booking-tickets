@@ -1,5 +1,3 @@
-import com.gromov.models.transport.Transport;
-
 /*
 Develop a ticket booking application
 When user start to work with the application, the user must register,
@@ -18,15 +16,6 @@ db: ms sql
  */
 public class Main {
     public static void main(String[] args) {
-        int[] rows = {
-                6,4,2
-        };
-        int[] columns = {
-                10,6,3
-        };
-        Transport plane = new Transport("1",3,rows,columns);
-        for(String x : plane.getLayOut()) {
-            System.out.println(x);
-        }
+
     }
 }

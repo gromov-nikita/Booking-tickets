@@ -1,6 +1,8 @@
-package com.gromov.models;
+package com.gromov.models.tables;
 
-public class User {
+import com.gromov.models.interfaces.Table;
+
+public class User implements Table {
     private String firstName;
     private String lastName;
     private String passportID;

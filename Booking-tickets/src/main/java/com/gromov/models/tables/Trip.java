@@ -1,6 +1,8 @@
-package com.gromov.models;
+package com.gromov.models.tables;
+import com.gromov.models.interfaces.Table;
+
 import java.sql.Timestamp;
-public class Trip {
+public class Trip implements Table {
     private Path path;
     private Timestamp date;
     private Transport transport;

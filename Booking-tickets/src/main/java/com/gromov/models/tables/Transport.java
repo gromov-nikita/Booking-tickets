@@ -1,6 +1,8 @@
-package com.gromov.models;
+package com.gromov.models.tables;
 
-public class Transport {
+import com.gromov.models.interfaces.Table;
+
+public class Transport implements Table {
     private String number;
     private int amountOfSeats;
     public Transport(String number, int amountOfSeats) {

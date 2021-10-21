@@ -1,6 +1,8 @@
-package com.gromov.models;
+package com.gromov.models.tables;
 
-public class Path {
+import com.gromov.models.interfaces.Table;
+
+public class Path implements Table {
     private City from;
     private City to;
     public Path(City from, City to) {
