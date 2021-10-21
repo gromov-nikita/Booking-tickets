@@ -1,8 +1,9 @@
 package com.gromov.models.tables;
 
+import com.gromov.models.interfaces.IObserver;
 import com.gromov.models.interfaces.Table;
 
-public class User implements Table {
+public class User implements Table, IObserver {
     private String firstName;
     private String lastName;
     private String passportID;
@@ -29,5 +30,10 @@ public class User implements Table {
     }
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String notify(String event) {
+        return "Email: " + email + "\nEvent: " + event;
     }
 }
