@@ -4,6 +4,7 @@ import com.gromov.models.interfaces.IObserver;
 import com.gromov.models.interfaces.Table;
 
 public class User implements Table, IObserver {
+    private int id;
     private String firstName;
     private String lastName;
     private String passportID;
@@ -15,6 +16,17 @@ public class User implements Table, IObserver {
         this.passportID = passportID;
         this.email = email;
         this.password = password;
+    }
+    public User(int id, String firstName, String lastName, String passportID, String email, String password) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.passportID = passportID;
+        this.email = email;
+        this.password = password;
+    }
+    public int getId() {
+        return id;
     }
     public String getFirstName() {
         return firstName;
