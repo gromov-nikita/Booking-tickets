@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.gromov.models.entity.UserEntity" table="user" schema="booking_tickets">
+        <id name="id">
+            <column name="id" sql-type="int"/>
+        </id>
+        <property name="firstName">
+            <column name="firstName" sql-type="varchar(45)" length="45"/>
+        </property>
+        <property name="lastName">
+            <column name="lastName" sql-type="varchar(45)" length="45"/>
+        </property>
+        <property name="passportId">
+            <column name="passportID" sql-type="varchar(45)" length="45"/>
+        </property>
+        <property name="email">
+            <column name="email" sql-type="varchar(45)" length="45"/>
+        </property>
+        <property name="password">
+            <column name="password" sql-type="varchar(45)" length="45"/>
+        </property>
+        <set name="ordersById" inverse="true">
+            <key>
+                <column name="userID"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.gromov.models.entity.OrderEntity"/>
+        </set>
+    </class>
+    <query name="logIn">
+        <![CDATA[from UserEntity as u where u.email = :email AND u.password = :password]]>
+    </query>
+    <query name="signUp">
+        <![CDATA[insert into UserEntity(firstName,lastName,passportId,email,password)
+            select :firstName,:lastName,:passportId,:email,:password from UserEntity]]>
+    </query>
+
+</hibernate-mapping>

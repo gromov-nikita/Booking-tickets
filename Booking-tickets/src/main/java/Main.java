@@ -12,9 +12,9 @@ User can leave comments about any flight. Need to provide option to give user in
 
 Use patterns, logging, properties file
 db: ms sql
-
  */
 public class Main {
     public static void main(String[] args) {
+
     }
 }

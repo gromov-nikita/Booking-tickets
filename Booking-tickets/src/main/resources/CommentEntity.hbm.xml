@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.gromov.models.entity.CommentEntity" table="comment" schema="booking_tickets">
+        <id name="id">
+            <column name="id" sql-type="int"/>
+        </id>
+        <property name="orderId">
+            <column name="orderID" sql-type="int"/>
+        </property>
+        <property name="text">
+            <column name="text" sql-type="longtext"/>
+        </property>
+        <many-to-one name="orderByOrderId" class="com.gromov.models.entity.OrderEntity">
+            <column name="orderID"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

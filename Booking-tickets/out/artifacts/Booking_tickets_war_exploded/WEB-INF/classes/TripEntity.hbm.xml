@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.gromov.models.entity.TripEntity" table="trip" schema="booking_tickets">
+        <id name="id">
+            <column name="id" sql-type="int"/>
+        </id>
+        <property name="date">
+            <column name="date" sql-type="timestamp"/>
+        </property>
+        <property name="transportId">
+            <column name="transportID" sql-type="int"/>
+        </property>
+        <many-to-one name="transportByTransportId" class="com.gromov.models.entity.TransportEntity">
+            <column name="transportID"/>
+        </many-to-one>
+        <set name="ordersById" inverse="true">
+            <key>
+                <column name="tripID"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.gromov.models.entity.OrderEntity"/>
+        </set>
+        <set name="pointsById" inverse="true">
+            <key>
+                <column name="tripID"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.gromov.models.entity.PointEntity"/>
+        </set>
+    </class>
+</hibernate-mapping>
