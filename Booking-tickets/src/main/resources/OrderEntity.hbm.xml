@@ -37,8 +37,11 @@
         </set>
     </class>
 
-    <query name="getOrersByUserID">
+    <query name="getOrdersByUserID">
         <![CDATA[from OrderEntity as o where o.userId = userId]]>
+    </query>
+    <query name="getAvailableOrders">
+        <![CDATA[from OrderEntity as o where o.tripByTripId.date <= :date]]>
     </query>
 
 </hibernate-mapping>

@@ -18,4 +18,8 @@
             <column name="orderID"/>
         </many-to-one>
     </class>
+    <query name="postComment">
+        <![CDATA[insert into CommentEntity(orderId,text)
+            select :orderId,:text from CommentEntity]]>
+    </query>
 </hibernate-mapping>

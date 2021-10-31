@@ -3,11 +3,9 @@ import com.gromov.models.entity.UserEntity;
 import com.gromov.service.hibernate.HibernateUtil;
 import org.hibernate.Session;
 
-import java.lang.reflect.InvocationTargetException;
-import java.sql.SQLException;
 import java.util.List;
 
-public class UserProfileManager {
+public class UserManager {
     public static List<UserEntity> logIn(String email, String password) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         List<UserEntity> users = session.createNamedQuery("logIn").setParameter("email", email)

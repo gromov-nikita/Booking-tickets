@@ -1,7 +1,5 @@
 package com.gromov.servlet;
 
-import com.gromov.service.manager.UserProfileManager;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
