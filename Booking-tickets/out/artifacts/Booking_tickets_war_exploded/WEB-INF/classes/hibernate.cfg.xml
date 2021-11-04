@@ -16,7 +16,8 @@
         <mapping class="com.gromov.models.entity.TransportEntity"/>
         <mapping class="com.gromov.models.entity.TripEntity"/>
         <mapping class="com.gromov.models.entity.UserEntity"/>
-        <mapping resource="UserEntity.hbm.xml"/>
+        <mapping resource="queries.hbm.xml"/>
+
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
     </session-factory>

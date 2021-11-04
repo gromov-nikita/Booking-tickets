@@ -1,79 +1,76 @@
 package com.gromov.models.entity;
 
+import com.gromov.models.enums.Status;
+
 import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
 @Table(name = "order", schema = "booking_tickets", catalog = "")
 public class OrderEntity {
-    private int id;
-    private int userId;
-    private int tripId;
-    private int seat;
-    private double price;
-    private Object status;
-    private Collection<CommentEntity> commentsById;
-    private UserEntity userByUserId;
-    private TripEntity tripByTripId;
-
     @Id
     @Column(name = "id", nullable = false)
+    private int id;
+    @Basic
+    @Column(name = "seat", nullable = false)
+    private int seat;
+    @Basic
+    @Column(name = "price", nullable = false, precision = 0)
+    private double price;
+    @Basic
+    @Enumerated
+    @Column(name = "status", nullable = false)
+    private Status status;
+    @OneToMany(mappedBy = "order")
+    private Collection<CommentEntity> comments;
+    @ManyToOne
+    @JoinColumn(name = "userID", referencedColumnName = "id")
+    private UserEntity user;
+    @ManyToOne
+    @JoinColumn(name = "tripID", referencedColumnName = "id")
+    private TripEntity otrip;
+
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
-
-    @Basic
-    @Column(name = "userID", nullable = false)
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    @Basic
-    @Column(name = "tripID", nullable = false)
-    public int getTripId() {
-        return tripId;
-    }
-
-    public void setTripId(int tripId) {
-        this.tripId = tripId;
-    }
-
-    @Basic
-    @Column(name = "seat", nullable = false)
     public int getSeat() {
         return seat;
     }
-
     public void setSeat(int seat) {
         this.seat = seat;
     }
-
-    @Basic
-    @Column(name = "price", nullable = false, precision = 0)
     public double getPrice() {
         return price;
     }
-
     public void setPrice(double price) {
         this.price = price;
     }
-
-    @Basic
-    @Column(name = "status", nullable = false)
-    public Object getStatus() {
+    public Status getStatus() {
         return status;
     }
-
-    public void setStatus(Object status) {
+    public void setStatus(Status status) {
         this.status = status;
+    }
+    public UserEntity getUser() {
+        return user;
+    }
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
+    public TripEntity getOtrip() {
+        return otrip;
+    }
+    public void setOtrip(TripEntity otrip) {
+        this.otrip = otrip;
+    }
+    public Collection<CommentEntity> getCommentsById() {
+        return comments;
+    }
+    public void setCommentsById(Collection<CommentEntity> comments) {
+        this.comments = comments;
     }
 
     @Override
@@ -84,8 +81,6 @@ public class OrderEntity {
         OrderEntity that = (OrderEntity) o;
 
         if (id != that.id) return false;
-        if (userId != that.userId) return false;
-        if (tripId != that.tripId) return false;
         if (seat != that.seat) return false;
         if (Double.compare(that.price, price) != 0) return false;
         if (status != null ? !status.equals(that.status) : that.status != null) return false;
@@ -98,8 +93,6 @@ public class OrderEntity {
         int result;
         long temp;
         result = id;
-        result = 31 * result + userId;
-        result = 31 * result + tripId;
         result = 31 * result + seat;
         temp = Double.doubleToLongBits(price);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
@@ -107,32 +100,4 @@ public class OrderEntity {
         return result;
     }
 
-    @OneToMany(mappedBy = "orderByOrderId")
-    public Collection<CommentEntity> getCommentsById() {
-        return commentsById;
-    }
-
-    public void setCommentsById(Collection<CommentEntity> commentsById) {
-        this.commentsById = commentsById;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "userID", referencedColumnName = "id", nullable = false)
-    public UserEntity getUserByUserId() {
-        return userByUserId;
-    }
-
-    public void setUserByUserId(UserEntity userByUserId) {
-        this.userByUserId = userByUserId;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "tripID", referencedColumnName = "id", nullable = false)
-    public TripEntity getTripByTripId() {
-        return tripByTripId;
-    }
-
-    public void setTripByTripId(TripEntity tripByTripId) {
-        this.tripByTripId = tripByTripId;
-    }
 }

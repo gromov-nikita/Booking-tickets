@@ -6,72 +6,68 @@ import java.util.Collection;
 @Entity
 @Table(name = "user", schema = "booking_tickets", catalog = "")
 public class UserEntity {
-    private int id;
-    private String firstName;
-    private String lastName;
-    private String passportId;
-    private String email;
-    private String password;
-    private Collection<OrderEntity> ordersById;
-
     @Id
     @Column(name = "id", nullable = false)
+    private int id;
+    @Basic
+    @Column(name = "firstName", nullable = false, length = 45)
+    private String firstName;
+    @Basic
+    @Column(name = "lastName", nullable = false, length = 45)
+    private String lastName;
+    @Basic
+    @Column(name = "passportID", nullable = false, length = 45)
+    private String passportId;
+    @Basic
+    @Column(name = "email", nullable = false, length = 45)
+    private String email;
+    @Basic
+    @Column(name = "password", nullable = false, length = 45)
+    private String password;
+    @OneToMany(mappedBy = "user")
+    private Collection<OrderEntity> orders;
+
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
-
-    @Basic
-    @Column(name = "firstName", nullable = false, length = 45)
     public String getFirstName() {
         return firstName;
     }
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
-    @Basic
-    @Column(name = "lastName", nullable = false, length = 45)
     public String getLastName() {
         return lastName;
     }
-
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
-    @Basic
-    @Column(name = "passportID", nullable = false, length = 45)
     public String getPassportId() {
         return passportId;
     }
-
     public void setPassportId(String passportId) {
         this.passportId = passportId;
     }
-
-    @Basic
-    @Column(name = "email", nullable = false, length = 45)
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
-
-    @Basic
-    @Column(name = "password", nullable = false, length = 45)
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
+    }
+    public Collection<OrderEntity> getOrders() {
+        return orders;
+    }
+    public void setOrders(Collection<OrderEntity> orders) {
+        this.orders = orders;
     }
 
     @Override
@@ -100,14 +96,5 @@ public class UserEntity {
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         return result;
-    }
-
-    @OneToMany(mappedBy = "userByUserId")
-    public Collection<OrderEntity> getOrdersById() {
-        return ordersById;
-    }
-
-    public void setOrdersById(Collection<OrderEntity> ordersById) {
-        this.ordersById = ordersById;
     }
 }

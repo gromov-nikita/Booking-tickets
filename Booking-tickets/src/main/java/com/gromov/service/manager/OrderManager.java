@@ -1,17 +1,13 @@
 package com.gromov.service.manager;
 
 import com.gromov.models.entity.OrderEntity;
-import com.gromov.models.entity.UserEntity;
+import com.gromov.models.entity.TripEntity;
+import com.gromov.models.enums.Status;
 import com.gromov.service.hibernate.HibernateUtil;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.boot.jaxb.internal.stax.JpaOrmXmlEventReader;
-
-import java.lang.reflect.InvocationTargetException;
-import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.Collection;
 import java.util.GregorianCalendar;
-import java.util.LinkedList;
 import java.util.List;
 
 public class OrderManager {
@@ -22,14 +18,21 @@ public class OrderManager {
         session.close();
         return history;
     }
-    public static List<OrderEntity> getOrders() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        List<OrderEntity> availableOrders = session.createNamedQuery("getAvailableOrders")
+    public static List<TripEntity> getTrips() {
+        Session session = null;
+        session = HibernateUtil.getSessionFactory().openSession();
+        return session.createNamedQuery("getAvailableTrips")
                 .setParameter("date",new Timestamp(GregorianCalendar.getInstance().getTime().getTime()))
-                .getResultList();
-        session.close();
-        return availableOrders;
+                .list();
     }
+    public static List<OrderEntity> getOrderById(int orderId) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        List<OrderEntity> order = session.createNamedQuery("getOrderById")
+                .setParameter("orderId", orderId).getResultList();
+        session.close();
+        return order;
+    }
+
     public static int postComment(int orderId, String text) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         int answer = session.createNamedQuery("postComment")
@@ -37,4 +40,13 @@ public class OrderManager {
         session.close();
         return answer;
     }
+    public static int changeStatus(int orderId, Status status) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        int answer = session.createNamedQuery("changeStatus")
+                .setParameter("orderId", orderId).setParameter("status", status.getName()).executeUpdate();
+        session.close();
+        return answer;
+    }
+
+
 }

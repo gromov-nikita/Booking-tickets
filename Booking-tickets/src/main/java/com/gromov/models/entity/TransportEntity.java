@@ -6,39 +6,41 @@ import java.util.Collection;
 @Entity
 @Table(name = "transport", schema = "booking_tickets", catalog = "")
 public class TransportEntity {
-    private int id;
-    private String number;
-    private int amountOfSeats;
-    private Collection<TripEntity> tripsById;
-
     @Id
     @Column(name = "id", nullable = false)
+    private int id;
+    @Basic
+    @Column(name = "number", nullable = false, length = 45)
+    private String number;
+    @Basic
+    @Column(name = "amountOfSeats", nullable = false)
+    private int amountOfSeats;
+    @OneToMany(mappedBy = "transport")
+    private Collection<TripEntity> trips;
+
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
-
-    @Basic
-    @Column(name = "number", nullable = false, length = 45)
     public String getNumber() {
         return number;
     }
-
     public void setNumber(String number) {
         this.number = number;
     }
-
-    @Basic
-    @Column(name = "amountOfSeats", nullable = false)
     public int getAmountOfSeats() {
         return amountOfSeats;
     }
-
     public void setAmountOfSeats(int amountOfSeats) {
         this.amountOfSeats = amountOfSeats;
+    }
+    public Collection<TripEntity> getTrips() {
+        return trips;
+    }
+    public void setTrips(Collection<TripEntity> trips) {
+        this.trips = trips;
     }
 
     @Override
@@ -61,14 +63,5 @@ public class TransportEntity {
         result = 31 * result + (number != null ? number.hashCode() : 0);
         result = 31 * result + amountOfSeats;
         return result;
-    }
-
-    @OneToMany(mappedBy = "transportByTransportId")
-    public Collection<TripEntity> getTripsById() {
-        return tripsById;
-    }
-
-    public void setTripsById(Collection<TripEntity> tripsById) {
-        this.tripsById = tripsById;
     }
 }

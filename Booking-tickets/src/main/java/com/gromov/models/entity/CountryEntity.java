@@ -6,28 +6,32 @@ import java.util.Collection;
 @Entity
 @Table(name = "country", schema = "booking_tickets", catalog = "")
 public class CountryEntity {
-    private int id;
-    private String name;
-    private Collection<CityEntity> citiesById;
-
     @Id
     @Column(name = "id", nullable = false)
+    private int id;
+    @Basic
+    @Column(name = "name", nullable = false, length = 45)
+    private String name;
+    @OneToMany(mappedBy = "country")
+    private Collection<CityEntity> cities;
+
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
-
-    @Basic
-    @Column(name = "name", nullable = false, length = 45)
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
+    }
+    public Collection<CityEntity> getCities() {
+        return cities;
+    }
+    public void setCities(Collection<CityEntity> cities) {
+        this.cities = cities;
     }
 
     @Override
@@ -48,14 +52,5 @@ public class CountryEntity {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
-    }
-
-    @OneToMany(mappedBy = "countryByCountryId")
-    public Collection<CityEntity> getCitiesById() {
-        return citiesById;
-    }
-
-    public void setCitiesById(Collection<CityEntity> citiesById) {
-        this.citiesById = citiesById;
     }
 }

@@ -1,3 +1,11 @@
+import com.gromov.models.entity.TripEntity;
+import com.gromov.service.hibernate.HibernateUtil;
+import com.gromov.service.manager.OrderManager;
+import org.hibernate.Session;
+import org.hibernate.criterion.Order;
+
+import java.util.List;
+
 /*
 Develop a ticket booking application
 When user start to work with the application, the user must register,
@@ -15,6 +23,12 @@ db: ms sql
  */
 public class Main {
     public static void main(String[] args) {
+        List<TripEntity> trips = OrderManager.getTrips();
+        String answer = "";
+        for(int i = 0; i < trips.size(); i++) {
+            answer+= trips.get(i).toString() + "\n";
+        }
+        System.out.println(answer);
 
     }
 }
